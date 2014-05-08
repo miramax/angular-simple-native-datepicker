@@ -1,0 +1,26 @@
+{
+  "name": "angular-simple-native-datepicker",
+  "version": "1.0.0",
+  "authors": [
+    "Janne Rintanen <janne.rintanen@gmail.com>"
+  ],
+  "main": [
+    "./dist/angular-simple-native-datepicker.min.js",
+    "./dist/angular-simple-native-datepicker.min.css"
+  ],
+  "moduleType": [
+    "angularjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-mocks": "~1.2.16",
+    "angular": "~1.2.16"
+  }
+}
