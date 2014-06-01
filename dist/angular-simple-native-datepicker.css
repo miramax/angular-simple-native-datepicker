@@ -1,0 +1,16 @@
+.simpleNativeDatepicker {
+    display: inline-block;
+    text-align: center;
+}
+
+.simpleNativeDatepicker td {
+    text-align: center;
+}
+
+.simpleNativeDatepicker .selected {
+    background-color: yellow;
+}
+
+.simpleNativeDatepicker .outOfMonth {
+    color: gray;
+}
