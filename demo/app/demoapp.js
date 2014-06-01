@@ -3,19 +3,27 @@ var app = angular.module('DemoApp', ['angular-simple-native-datepicker']);
 app.controller('DemoController', function($scope, CalendarUtil) {
 
     // single month example
+
+    // override default options and set listeners for date selections, ..
     $scope.singleMonthOptions = {
         firstDayOfWeek: 0,
         dayNames: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                     'August', 'September', 'October', 'November', 'December'],
+                     'August', 'September', 'October', 'November', 'December']
+        // daySelected: function(date) { console.log('selected', date); },
+        // dayUnSelected: function(date) { console.log('unselected', date); },
+        // showPrevMonthBtn: true,
+        // showNextMonthBtn: true,
+        // moveMonth: function(diff) { }
     };
-    $scope.singleMonthMonth = 1;
-    $scope.singleMonthYear = 2014
-    $scope.singleMonthSelectedDates = [];
-    $scope.singleMonthVersionNumber = 1;
+    $scope.singleMonthMonth = 1;  // the month shown
+    $scope.singleMonthYear = 2014  // the year shown
+    $scope.singleMonthSelectedDates = []; // is populated when dates are selected/unselected
+    $scope.singleMonthVersionNumber = 1; // changing this refresh the calendar
 
     
-    // multi month example   
+    // multi month example
+
     $scope.calendars = [
         CalendarUtil.currentYearMonth(),
         CalendarUtil.rollYearMonth(CalendarUtil.currentYearMonth(), 1),
@@ -23,7 +31,7 @@ app.controller('DemoController', function($scope, CalendarUtil) {
     ];
 
     $scope.selectedDates = [];
-    $scope.versionNumber = 1; // triggers refresh for calendars
+    $scope.versionNumber = 1; // triggers refresh for all calendars
 
     var moveMonth = function(diff) {
         for (var i = $scope.calendars.length - 1; i >= 0; i--) {
