@@ -5,6 +5,7 @@
 
 .simpleNativeDatepicker td {
     text-align: center;
+    cursor: pointer;
 }
 
 .simpleNativeDatepicker .selected {
@@ -18,9 +19,11 @@
 .simpleNativeDatepicker .prevMonthBtn {
     float: left;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 .simpleNativeDatepicker .nextMonthBtn {
     float: right;
     margin-right: 4px;
+    cursor: pointer;
 }

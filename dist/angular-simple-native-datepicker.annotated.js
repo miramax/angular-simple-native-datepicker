@@ -153,7 +153,7 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
     'use strict';
     return {
       restrict: 'A',
-      template: '<div class="simpleNativeDatepicker">' + '<span class="header">{{monthStr}} {{year}}</span>' + '<table>' + '<thead>' + '<tr>' + '<th ng-repeat="dayName in orderedDayNames">{{dayName}}</th>' + '</tr>' + '</thead>' + '<tbody>' + '<tr ng-repeat="week in calMonth.weeks">' + '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-click="selectDate(day)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>',
+      template: '<div class="simpleNativeDatepicker">' + '<span ng-show="showPrevMonthBtn" ng-click="moveMonth(-1)" class="prevMonthBtn">&lt;</span>' + '<span class="header">{{monthStr}} {{year}}</span>' + '<span ng-show="showNextMonthBtn" ng-click="moveMonth(1)" class="nextMonthBtn">&gt;</span>' + '<table>' + '<thead>' + '<tr>' + '<th ng-repeat="dayName in orderedDayNames">{{dayName}}</th>' + '</tr>' + '</thead>' + '<tbody>' + '<tr ng-repeat="week in calMonth.weeks">' + '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-click="selectDate(day)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>',
       scope: {
         year: '=',
         month: '=',
@@ -192,6 +192,18 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
             },
             dayUnSelected: function (date) {
               console.log('unselected', date);
+            },
+            showPrevMonthBtn: true,
+            showNextMonthBtn: true,
+            moveMonth: function (diff) {
+              var yearMonth = {
+                  year: scope.year,
+                  month: scope.month
+                };
+              CalendarUtil.rollYearMonth(yearMonth, diff);
+              scope.year = yearMonth.year;
+              scope.month = yearMonth.month;
+              scope.versionNumber += 1;
             }
           };
         var options = angular.extend(defaultOptions, scope.options);
@@ -204,8 +216,11 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
             scope.selectedDates.push(day.date);
             options.daySelected(day.date);
           }
-          scope.versionNumber = scope.versionNumber + 1;
+          scope.versionNumber += 1;
         };
+        scope.moveMonth = options.moveMonth;
+        scope.showPrevMonthBtn = options.showPrevMonthBtn;
+        scope.showNextMonthBtn = options.showNextMonthBtn;
         var refresh = function (year, month, selectedDates) {
           scope.calMonth = [];
           scope.calMonth = CalendarUtil.getMonth(year, month, options.firstDayOfWeek, selectedDates);
