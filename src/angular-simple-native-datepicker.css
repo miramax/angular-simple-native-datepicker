@@ -14,3 +14,13 @@
 .simpleNativeDatepicker .outOfMonth {
     color: gray;
 }
+
+.simpleNativeDatepicker .prevMonthBtn {
+    float: left;
+    margin-left: 4px;
+}
+
+.simpleNativeDatepicker .nextMonthBtn {
+    float: right;
+    margin-right: 4px;
+}

@@ -183,7 +183,9 @@ angular.module('angular-simple-native-datepicker', [])
       restrict: 'A',
 
       template: '<div class="simpleNativeDatepicker">' +
+                    '<span ng-show="showPrevMonthBtn" ng-click="moveMonth(-1)" class="prevMonthBtn">&lt;</span>' +
                     '<span class="header">{{monthStr}} {{year}}</span>' +
+                    '<span ng-show="showNextMonthBtn" ng-click="moveMonth(1)" class="nextMonthBtn">&gt;</span>' +
                     '<table>' +
                         '<thead>' +
                             '<tr>' +
@@ -214,7 +216,16 @@ angular.module('angular-simple-native-datepicker', [])
             monthNames: ['Tammikuu', 'Helmikuu', 'Maaliskuu', 'Huhtikuu', 'Toukokuu', 'Kesäkuu', 'Heinäkuu',
                          'Elokuu', 'Syyskuu', 'Lokakuu', 'Marraskuu', 'Joulukuu'],
             daySelected: function(date) { console.log('selected', date); },
-            dayUnSelected: function(date) { console.log('unselected', date); }
+            dayUnSelected: function(date) { console.log('unselected', date); },
+            showPrevMonthBtn: true,
+            showNextMonthBtn: true,
+            moveMonth: function(diff) {
+                var yearMonth = {year: scope.year, month: scope.month};
+                CalendarUtil.rollYearMonth(yearMonth, diff);
+                scope.year = yearMonth.year;
+                scope.month = yearMonth.month;
+                scope.versionNumber += 1;
+            }
         };
 
         var options = angular.extend(defaultOptions, scope.options);
@@ -231,8 +242,12 @@ angular.module('angular-simple-native-datepicker', [])
                 scope.selectedDates.push(day.date);
                 options.daySelected(day.date);
             }
-            scope.versionNumber = scope.versionNumber + 1;
+            scope.versionNumber += 1;
         };
+
+        scope.moveMonth = options.moveMonth;
+        scope.showPrevMonthBtn = options.showPrevMonthBtn;
+        scope.showNextMonthBtn = options.showNextMonthBtn;
 
         var refresh = function(year, month, selectedDates) {
             scope.calMonth = [];

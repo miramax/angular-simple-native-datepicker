@@ -1,8 +1,8 @@
 <html>
 <head>
     <script type="text/javascript" src="angular/angular.min.js"></script>
-    <script type="text/javascript" src="angular-simple-native-datepicker.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="angular-simple-native-datepicker.min.css">
+    <script type="text/javascript" src="angular-simple-native-datepicker/src/angular-simple-native-datepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="angular-simple-native-datepicker/src/angular-simple-native-datepicker.css">
     
     <script type="text/javascript" src="demoapp.js"></script> 
 
@@ -14,22 +14,32 @@
             margin-top: 12px;
         }
 
-        .prevMonth {
-            margin-right: 24px;
+        .clearFloats {
+            clear: both;
         }
     </style>
 </head>
 <body ng-app="DemoApp" ng-controller="DemoController">
     
-    <span class="prevMonth" ng-click="moveMonth(-1)">&lt; prev month</span>
-    <span class="nextMonth" ng-click="moveMonth(1)">next month &gt;</span>
+    <h2>Single month</h2>
+    <div simple-native-datepicker year="singleMonthYear" month="singleMonthMonth" 
+         selected-dates="singleMonthSelectedDates" version-number="singleMonthVersionNumber" 
+         options="singleMonthOptions">
+    </div>
 
+    <div class="clearFloats"></div>
+
+    <h2>Multimonth</h2>
     <div simple-native-datepicker year="calendars[0].year" month="calendars[0].month" 
-         selected-dates="selectedDates" version-number="versionNumber" options="options">
+         selected-dates="selectedDates" version-number="versionNumber" options="options[0]">
     </div>
 
     <div simple-native-datepicker year="calendars[1].year" month="calendars[1].month" 
-         selected-dates="selectedDates" version-number="versionNumber">
+         selected-dates="selectedDates" version-number="versionNumber" options="options[1]">
+    </div>
+
+    <div simple-native-datepicker year="calendars[2].year" month="calendars[2].month" 
+         selected-dates="selectedDates" version-number="versionNumber" options="options[2]">
     </div>
 
 </body>
