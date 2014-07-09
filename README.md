@@ -6,25 +6,28 @@ A simple angular directive to pick dates from one or more months.
 - Easy to show multiple months
 - Easy to pick multiple dates 
 
+# Demo
+
 Check the demo application inside demo/. It's running live [here](https://rawgit.com/janneri/angular-simple-native-datepicker/master/demo/app/index.html).
 
 ![screenshot](https://raw.githubusercontent.com/janneri/angular-simple-native-datepicker/master/screenshot.png)
 
 
 # Usage
+
 ```
 <html>
 <head>
 
     <script type="text/javascript" src="bower_components/angularjs/angular.min.js"></script>
-    
+
     <script type="text/javascript" src="bower_components/angular-simple-native-datepicker/dist/angular-simple-native-datepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="bower_components/angular-simple-native-datepicker/dist/angular-simple-native-datepicker.min.css">
 
     <script type="text/javascript">
         var app = angular.module('DemoApp', ['angular-simple-native-datepicker']);
 
-        app.controller('DemoController', function($scope, CalendarUtil) {
+        app.controller('DemoController', function($scope) {
 
             // single month example
 
@@ -61,13 +64,14 @@ Check the demo application inside demo/. It's running live [here](https://rawgit
         }
     </style>
 </head>
-<body ng-app="DemoApp" ng-controller="DemoController">
-    
+
+<body ng-app="DemoApp" ng-controller="DemoController">   
     <h2>Single month</h2>
     <div simple-native-datepicker year="singleMonthYear" month="singleMonthMonth" 
          selected-dates="singleMonthSelectedDates" version-number="singleMonthVersionNumber" 
          options="singleMonthOptions">
     </div>
 </body>
+
 </html>
 ```
