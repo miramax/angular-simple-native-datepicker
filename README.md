@@ -15,7 +15,7 @@ Check the demo application inside demo/. It's running live [here](https://rawgit
 
 # Usage
 
-```
+```HTML
 <html>
 <head>
 
