@@ -19,7 +19,7 @@ app.controller('DemoController', function($scope, CalendarUtil) {
     $scope.singleMonthMonth = 1;  // the month shown
     $scope.singleMonthYear = 2014  // the year shown
     $scope.singleMonthSelectedDates = []; // is populated when dates are selected/unselected
-    $scope.singleMonthVersionNumber = 1; // changing this refresh the calendar
+    $scope.singleMonthVersionNumber = 1; // changing this will refresh the calendar
 
     
     // multi month example
