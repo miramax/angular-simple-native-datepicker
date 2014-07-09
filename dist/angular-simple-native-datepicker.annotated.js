@@ -153,7 +153,7 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
     'use strict';
     return {
       restrict: 'A',
-      template: '<div class="simpleNativeDatepicker">' + '<span ng-show="showPrevMonthBtn" ng-click="moveMonth(-1)" class="prevMonthBtn">&lt;</span>' + '<span class="header">{{monthStr}} {{year}}</span>' + '<span ng-show="showNextMonthBtn" ng-click="moveMonth(1)" class="nextMonthBtn">&gt;</span>' + '<table>' + '<thead>' + '<tr>' + '<th ng-repeat="dayName in orderedDayNames">{{dayName}}</th>' + '</tr>' + '</thead>' + '<tbody>' + '<tr ng-repeat="week in calMonth.weeks">' + '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-click="selectDate(day)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>',
+      template: '<div class="simpleNativeDatepicker" ng-mouseleave="onMouseLeave()" ng-mouseup="onMouseUp()">' + '<span ng-show="showPrevMonthBtn" ng-click="moveMonth(-1)" class="prevMonthBtn">&lt;</span>' + '<span class="header">{{monthStr}} {{year}}</span>' + '<span ng-show="showNextMonthBtn" ng-click="moveMonth(1)" class="nextMonthBtn">&gt;</span>' + '<table>' + '<thead>' + '<tr>' + '<th ng-repeat="dayName in orderedDayNames">{{dayName}}</th>' + '</tr>' + '</thead>' + '<tbody>' + '<tr ng-repeat="week in calMonth.weeks">' + '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-mousedown="onMouseDown(day)" ng-mouseenter="onMouseEnter(day)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>',
       scope: {
         year: '=',
         month: '=',
@@ -208,7 +208,25 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
           };
         var options = angular.extend(defaultOptions, scope.options);
         scope.orderedDayNames = options.dayNames.slice(options.firstDayOfWeek).concat(options.dayNames.slice(0, options.firstDayOfWeek));
-        scope.selectDate = function (day) {
+        scope.mouseDown = false;
+        scope.onMouseLeave = function () {
+          scope.mouseDown = false;
+          scope.versionNumber += 1;  // refresh           
+        };
+        scope.onMouseUp = function () {
+          scope.mouseDown = false;
+          scope.versionNumber += 1;  // refresh
+        };
+        scope.onMouseDown = function (day) {
+          scope.mouseDown = true;
+          toggleDateSelection(day);
+        };
+        scope.onMouseEnter = function (day) {
+          if (scope.mouseDown) {
+            toggleDateSelection(day);
+          }
+        };
+        var toggleDateSelection = function (day) {
           if (cu.contains(scope.selectedDates, day.date, CalendarUtil.equalDateWithoutTime)) {
             cu.remove(scope.selectedDates, day.date, CalendarUtil.equalDateWithoutTime);
             options.dayUnSelected(day.date);
@@ -216,7 +234,6 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
             scope.selectedDates.push(day.date);
             options.daySelected(day.date);
           }
-          scope.versionNumber += 1;
         };
         scope.moveMonth = options.moveMonth;
         scope.showPrevMonthBtn = options.showPrevMonthBtn;

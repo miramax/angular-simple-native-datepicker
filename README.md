@@ -1,10 +1,11 @@
 angular-simple-native-datepicker
 ================================
 
-A simple angular directive to pick dates from one or more months.
+An AngularJS directive to pick dates from one or more months.
 - Depends only on AngularJS
 - Easy to show multiple months
-- Easy to pick multiple dates 
+- Easy to pick multiple dates
+- Supports selecting multiple dates with a "box-selection". Just click and drag over the dates to select.
 
 # Demo
 
