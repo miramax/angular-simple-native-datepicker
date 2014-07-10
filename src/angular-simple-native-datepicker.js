@@ -195,7 +195,7 @@ angular.module('angular-simple-native-datepicker', [])
 
                         '<tbody>' +
                             '<tr ng-repeat="week in calMonth.weeks">' +
-                                '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-mousedown="onMouseDown(day)" ng-mouseenter="onMouseEnter(day)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' +
+                                '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-mousedown="onMouseDown(day, $event)" ng-mouseenter="onMouseEnter(day, $event)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' +
                             '</tr>' +
                         '</tbody>' +
                     '</table>' +
@@ -256,14 +256,16 @@ angular.module('angular-simple-native-datepicker', [])
             scope.versionNumber += 1; // refresh
         };
 
-        scope.onMouseDown = function(day) {
+        scope.onMouseDown = function(day, $event) {
             scope.mouseDown = true;
             toggleDateSelection(day);
+            angular.element($event.target).addClass('selecting');
         };
 
-        scope.onMouseEnter = function(day) {
+        scope.onMouseEnter = function(day, $event) {
             if ( scope.mouseDown ) {
                 toggleDateSelection(day);            
+                angular.element($event.target).addClass('selecting');
             }
         };
 
