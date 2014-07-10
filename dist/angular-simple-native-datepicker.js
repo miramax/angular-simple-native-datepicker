@@ -55,7 +55,7 @@ angular.module('angular-simple-native-datepicker', [])
     this.remove = function(values, item, comparisonFn) {
         for (var i = values.length - 1; i >= 0; i--) {
             if ( comparisonFn(values[i], item) ) {
-                values.splice(i, i+1);
+                values.splice(i, 1);
             }
         }
         return false;
