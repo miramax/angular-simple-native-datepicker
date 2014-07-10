@@ -230,10 +230,21 @@ angular.module('angular-simple-native-datepicker', [])
 
         var options = angular.extend(defaultOptions, scope.options);
 
+        // a list of day names starting with the first day which is probably Sunday or Monday
         scope.orderedDayNames = options.dayNames.slice(options.firstDayOfWeek).concat( 
             options.dayNames.slice(0, options.firstDayOfWeek));
 
-        scope.mouseDown = false;
+        // holds the state of mouse to detect when user is selecting multiple dates
+        scope.mouseDown = false; 
+
+        // if the user of this directive did not spesify the year attribute, we can use current year
+        if ( !scope.year ) {
+            scope.year = CalendarUtil.currentYearMonth().year;
+        }
+
+        if ( !scope.month ) {
+            scope.month = CalendarUtil.currentYearMonth().month;
+        }
 
         scope.onMouseLeave = function() {
             scope.mouseDown = false; 
