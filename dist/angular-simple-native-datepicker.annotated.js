@@ -153,7 +153,7 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
     'use strict';
     return {
       restrict: 'A',
-      template: '<div class="simpleNativeDatepicker" ng-mouseleave="onMouseLeave()" ng-mouseup="onMouseUp()">' + '<span ng-show="showPrevMonthBtn" ng-click="moveMonth(-1)" class="prevMonthBtn">&lt;</span>' + '<span class="header">{{monthStr}} {{year}}</span>' + '<span ng-show="showNextMonthBtn" ng-click="moveMonth(1)" class="nextMonthBtn">&gt;</span>' + '<table>' + '<thead>' + '<tr>' + '<th ng-repeat="dayName in orderedDayNames">{{dayName}}</th>' + '</tr>' + '</thead>' + '<tbody>' + '<tr ng-repeat="week in calMonth.weeks">' + '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-mousedown="onMouseDown(day)" ng-mouseenter="onMouseEnter(day)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>',
+      template: '<div class="simpleNativeDatepicker" ng-mouseleave="onMouseLeave()" ng-mouseup="onMouseUp()">' + '<span ng-show="showPrevMonthBtn" ng-click="moveMonth(-1)" class="prevMonthBtn">&lt;</span>' + '<span class="header">{{monthStr}} {{year}}</span>' + '<span ng-show="showNextMonthBtn" ng-click="moveMonth(1)" class="nextMonthBtn">&gt;</span>' + '<table>' + '<thead>' + '<tr>' + '<th ng-repeat="dayName in orderedDayNames">{{dayName}}</th>' + '</tr>' + '</thead>' + '<tbody>' + '<tr ng-repeat="week in calMonth.weeks">' + '<td ng-class="{outOfMonth: day.outOfMonth, selected: day.selected}" ng-mousedown="onMouseDown(day, $event)" ng-mouseenter="onMouseEnter(day, $event)" ng-repeat="day in week.days">{{day.date.getDate()}}</td>' + '</tr>' + '</tbody>' + '</table>' + '</div>',
       scope: {
         year: '=',
         month: '=',
@@ -226,13 +226,15 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
           scope.mouseDown = false;
           scope.versionNumber += 1;  // refresh
         };
-        scope.onMouseDown = function (day) {
+        scope.onMouseDown = function (day, $event) {
           scope.mouseDown = true;
           toggleDateSelection(day);
+          angular.element($event.target).addClass('selecting');
         };
-        scope.onMouseEnter = function (day) {
+        scope.onMouseEnter = function (day, $event) {
           if (scope.mouseDown) {
             toggleDateSelection(day);
+            angular.element($event.target).addClass('selecting');
           }
         };
         var toggleDateSelection = function (day) {

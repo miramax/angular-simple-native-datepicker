@@ -18,6 +18,11 @@
     background-color: yellow;
 }
 
+.simpleNativeDatepicker .selecting {
+    background-color: #E6E6E6;
+}
+
+
 .simpleNativeDatepicker .outOfMonth {
     color: gray;
 }
