@@ -212,10 +212,10 @@ angular.module('angular-simple-native-datepicker', []).service('CollectionUtil',
         // holds the state of mouse to detect when user is selecting multiple dates
         scope.mouseDown = false;
         // if the user of this directive did not spesify the year attribute, we can use current year
-        if (!scope.year) {
+        if (scope.year === undefined) {
           scope.year = CalendarUtil.currentYearMonth().year;
         }
-        if (!scope.month) {
+        if (scope.month === undefined) {
           scope.month = CalendarUtil.currentYearMonth().month;
         }
         scope.onMouseLeave = function () {
